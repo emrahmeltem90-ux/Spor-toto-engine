@@ -1,21 +1,27 @@
 import math
+import json
 
 class SporTotoEngine:
-    def __init__(self):
+    def __init__(self, bulletin_path="bulletin.json"):
+        self.bulletin_path = bulletin_path
         self.matches = []
+        self.load_bulletin()
 
-    def add_match(self, home_team, away_team, home_odds, draw_odds, away_odds):
-        """Bültendeki bir maçı oranları ve takımlarıyla sisteme ekler."""
-        self.matches.append({
-            "home": home_team,
-            "away": away_team,
-            "odds": {"1": home_odds, "0": draw_odds, "2": away_odds}
-        })
+    def load_bulletin(self):
+        """Dışarıdaki bulletin.json dosyasını okuyarak 15 maçı sisteme yükler."""
+        try:
+            with open(self.bulletin_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                self.matches = data.get("matches", [])
+            print(f"Bülten yüklendi! Hafta: {data.get('week', 1)} | Toplam Maç: {len(self.matches)}")
+        except FileNotFoundError:
+            print("Hata: bulletin.json dosyası bulunamadı!")
 
-    def calculate_implied_probabilities(self, match_idx):
-        """Bahis oranlarından bahis piyasası olasılıklarını (marj arındırılmış) hesaplar."""
-        match = self.matches[match_idx]
+    def calculate_implied_probabilities(self, match):
+        """Bahis oranlarından marj arındırılmış piyasa olasılıklarını hesaplar."""
         odds = match["odds"]
+        if odds["1"] <= 0 or odds["0"] <= 0 or odds["2"] <= 0:
+            return {"1": 0.0, "0": 0.0, "2": 0.0}
         
         p1 = 1 / odds["1"]
         p0 = 1 / odds["0"]
@@ -29,40 +35,25 @@ class SporTotoEngine:
         }
 
     def poisson_probability(self, lmbda, k):
-        """Poisson dağılımı ile belirli bir gol olma olasılığını hesaplar."""
         return (math.exp(-lmbda) * (lmbda ** k)) / math.factorial(k)
 
     def analyze_match_score(self, home_lambda, away_lambda, max_goals=5):
-        """Poisson modeli ile en olası skor matrisini çıkarır."""
         matrix = []
         for h in range(max_goals + 1):
             for a in range(max_goals + 1):
                 p = self.poisson_probability(home_lambda, h) * self.poisson_probability(away_lambda, a)
                 matrix.append({"score": f"{h}-{a}", "prob": p * 100})
-        
         matrix.sort(key=lambda x: x["prob"], reverse=True)
         return matrix[:3]
 
     def analyze_all_matches(self):
-        """Eklenen tüm maçların piyasa beklentilerini ekrana döker."""
-        print(f"\n{'Ev Sahibi':<20} | {'Deplasman':<20} | {'MS 1 (%)':<10} | {'MS 0 (%)':<10} | {'MS 2 (%)':<10}")
-        print("-" * 80)
-        for i, match in enumerate(self.matches):
-            probs = self.calculate_implied_probabilities(i)
-            print(f"{match['home']:<20} | {match['away']:<20} | {probs['1']:<10} | {probs['0']:<10} | {probs['2']:<10}")
+        print(f"\n{'Ev Sahibi':<25} | {'Deplasman':<25} | {'MS 1 (%)':<10} | {'MS 0 (%)':<10} | {'MS 2 (%)':<10}")
+        print("-" * 95)
+        for match in self.matches:
+            probs = self.calculate_implied_probabilities(match)
+            print(f"{match['home_team']:<25} | {match['away_team']:<25} | {probs['1']:<10} | {probs['0']:<10} | {probs['2']:<10}")
 
 if __name__ == "__main__":
-    print("=== SPOR TOTO & ANALİZ MOTORU BAŞLATILDI ===")
-    toto = SporTotoEngine()
-    
-    toto.add_match("Konyaspor", "Galatasaray", 4.20, 3.60, 1.65)
-    toto.add_match("Fenerbahçe", "Göztepe", 1.35, 4.50, 6.50)
-    toto.add_match("Kasımpaşa", "Beşiktaş", 2.80, 3.40, 2.10)
-    toto.add_match("AC Milan", "Inter", 2.50, 3.20, 2.70)
-    
-    toto.analyze_all_matches()
-    
-    print("\n--- Poisson Skor Analizi Örneği (Konyaspor vs Galatasaray) ---")
-    top_scores = toto.analyze_match_score(home_lambda=1.1, away_lambda=1.8)
-    for item in top_scores:
-        print(f"Skor: {item['score']} | Olasılık: %{item['prob']:.2f}")
+    print("=== SPOR TOTO ANALİZ MOTORU BAŞLATILDI ===")
+    engine = SporTotoEngine("bulletin.json")
+    engine.analyze_all_matches()
