@@ -1,0 +1,95 @@
+{
+  "week": 1,
+  "matches": [
+    {
+      "match_id": 1,
+      "home_team": "Konyaspor",
+      "away_team": "Galatasaray A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 2,
+      "home_team": "Erzurumspor FK",
+      "away_team": "Çorum FK",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 3,
+      "home_team": "Kocaelispor",
+      "away_team": "Çaykur Rizespor A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 4,
+      "home_team": "Fenerbahçe A.Ş.",
+      "away_team": "Göztepe A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 5,
+      "home_team": "Amed Sportif Faaliyetler",
+      "away_team": "Eyüpspor",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 6,
+      "home_team": "Başakşehir FK",
+      "away_team": "Samsunspor A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 7,
+      "home_team": "Trabzonspor A.Ş.",
+      "away_team": "Gaziantep FK A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 8,
+      "home_team": "Kasımpaşa A.Ş.",
+      "away_team": "Beşiktaş A.Ş.",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 9,
+      "home_team": "Gençlerbirliği",
+      "away_team": "Alanyaspor",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 10,
+      "home_team": "Bayern Münih",
+      "away_team": "B. Dortmund",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 11,
+      "home_team": "Chelsea",
+      "away_team": "Manchester United",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 12,
+      "home_team": "Liverpool",
+      "away_team": "Arsenal",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 13,
+      "home_team": "Athletic Bilbao",
+      "away_team": "Real Sociedad",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 14,
+      "home_team": "AC Milan",
+      "away_team": "Inter",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    },
+    {
+      "match_id": 15,
+      "home_team": "Juventus",
+      "away_team": "Napoli",
+      "odds": { "1": 0.0, "0": 0.0, "2": 0.0 }
+    }
+  ]
+}
